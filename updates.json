@@ -1,0 +1,34 @@
+{
+  "_about": "Live updates for the beta section. Keep newest first (the page shows them in file order). Add new entries at the top by hand for now. Later this will also be fed by feedback status changes (D1 table `feedback`, column `status`), with kind \"response\". Only post facts that FORGE or CJ has confirmed.",
+  "updated": "2026-11-19T22:45:00-05:00",
+  "entries": [
+    {
+      "id": "2026-11-19-public-beta-group",
+      "date": "2026-11-19T15:27:00-05:00",
+      "kind": "beta",
+      "title": "Public beta group set up. Beta link coming soon.",
+      "source": "brand-reference/forge-feature-summary.md §3"
+    },
+    {
+      "id": "2026-11-19-beta-approved",
+      "date": "2026-11-19",
+      "kind": "beta",
+      "title": "Beta build 2.2 approved for testing.",
+      "source": "brand-reference/forge-feature-summary.md §3 (Beta App Review: APPROVED; time not recorded)"
+    },
+    {
+      "id": "2026-11-19-beta-review",
+      "date": "2026-11-19T07:55:00-05:00",
+      "kind": "build",
+      "title": "Beta build 2.2 submitted for review.",
+      "source": "brand-reference/forge-feature-summary.md §3"
+    },
+    {
+      "id": "2026-11-19-build-uploaded",
+      "date": "2026-11-19T07:29:00-05:00",
+      "kind": "build",
+      "title": "Beta build 2.2 uploaded for testing.",
+      "source": "brand-reference/forge-feature-summary.md §3"
+    }
+  ]
+}

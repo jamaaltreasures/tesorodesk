@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Cursor sticker: Gold fill, Bone die-cut outline, Carbon key line (brand board sticker style). Original drawing. -->
+  <path d="M10 6 L54 34 L34 37 L44 56 L35 60 L25 41 L10 54 Z" fill="#F1EEE7" stroke="#F1EEE7" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M10 6 L54 34 L34 37 L44 56 L35 60 L25 41 L10 54 Z" fill="#E9B44C" stroke="#101418" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M16 16 L22 46" stroke="#F9D45C" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+</svg>

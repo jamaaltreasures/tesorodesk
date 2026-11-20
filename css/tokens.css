@@ -1,0 +1,90 @@
+/* Tesoro Desk — brand tokens (TESORO by Jamaal Treasures, V/2). */
+
+@font-face { font-family: "Space Grotesk"; src: url("/fonts/space-grotesk-var.woff2") format("woff2-variations"), url("/fonts/space-grotesk-var.woff2") format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("/fonts/inter-var.woff2") format("woff2-variations"), url("/fonts/inter-var.woff2") format("woff2"); font-weight: 400 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("/fonts/ibm-plex-mono-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+:root {
+  color-scheme: dark;
+
+  /* Palette */
+  --carbon: #101418;
+  --carbon-deep: #0B0E11;
+  --gunmetal: #29323A;
+  --gunmetal-soft: #1A2026;
+  --alloy: #98A3AD;
+  --bone: #F1EEE7;
+  --gold: #E9B44C;
+  --gold-hi: #F9D45C;
+  --gold-lo: #E08A1E;
+  --signal: #F26A3D;
+
+  /* Roles */
+  --bg: var(--carbon);
+  --surface: var(--gunmetal-soft);
+  --surface-2: var(--gunmetal);
+  --line: rgba(152, 163, 173, 0.22);
+  --line-strong: rgba(152, 163, 173, 0.42);
+  --fg: var(--bone);
+  --fg-muted: var(--alloy);
+  --accent: var(--gold);
+  --gold-grad: linear-gradient(135deg, var(--gold-hi) 0%, var(--gold) 52%, var(--gold-lo) 100%);
+  --hatch: repeating-linear-gradient(-45deg, rgba(152,163,173,0.16) 0 1px, transparent 1px 9px);
+  --hatch-gold: repeating-linear-gradient(-45deg, rgba(233,180,76,0.9) 0 6px, transparent 6px 14px);
+
+  /* Type */
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Fluid scale, ratio ~1.25 at 360px rising to ~1.414 at 1440px */
+  --fs-mono: clamp(0.6875rem, 0.66rem + 0.12vw, 0.75rem);
+  --fs-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --fs-body: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+  --fs-lede: clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
+  --fs-h3: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --fs-h2: clamp(2.5rem, 1.35rem + 5.1vw, 5.5rem);
+  --fs-h1: clamp(3.25rem, 1.2rem + 9vw, 8.75rem);
+  --track-display: -0.02em;
+  --track-mono: 0.16em;
+  --lh-display: 0.9;
+  --lh-body: 1.6;
+  --measure: 64ch;
+  /* Rhythm: 8px base, matches the minor grid */
+  --u: 8px;
+  --space-1: calc(var(--u) * 1);
+  --space-2: calc(var(--u) * 2);
+  --space-3: calc(var(--u) * 3);
+  --space-4: calc(var(--u) * 4);
+  --space-6: calc(var(--u) * 6);
+  --space-8: calc(var(--u) * 8);
+  --space-12: calc(var(--u) * 12);
+  --space-16: calc(var(--u) * 16);
+  --grid-minor: 8px;
+  --grid-major: 64px;
+
+  /* Space */
+  --gutter: clamp(1.25rem, 0.6rem + 3vw, 3rem);
+  --maxw: 1240px;
+  --radius: 4px;
+  --tick: 12px;
+
+  /* Motion (D1) */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 180ms;
+  --dur-2: 320ms;
+  --dur-3: 520ms;
+  --dur-4: 760ms;
+  --dur-chest: 1400ms;
+  /* Spring (slight overshoot, settles) — linear() where supported */
+  --spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+  --spring-soft: cubic-bezier(0.22, 1.12, 0.36, 1);
+}
+
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --spring: linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001 85%, 1);
+    --spring-soft: linear(0, 0.009, 0.037 2.6%, 0.158 5.7%, 0.633 17.6%, 0.814 24.3%, 0.926 31.4%, 0.987 39.6%, 1.007 46.5%, 1.011 55.7%, 1.002 78%, 1);
+  }
+}

@@ -1,0 +1,13 @@
+/* Layer: gold glow. Light spill (glow-spill.svg) and rays (light-rays.svg),
+   composited with screen so they only ever add light. */
+.glow-spill, .glow-rays {
+  position: absolute; pointer-events: none;
+  mix-blend-mode: screen;
+  background-position: center; background-repeat: no-repeat; background-size: 100% 100%;
+}
+.glow-spill { background-image: url("/img/layers/glow-spill.svg"); }
+.glow-rays { background-image: url("/img/layers/light-rays.svg"); }
+.glow-ambient {
+  position: absolute; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(233, 180, 76, 0.16), rgba(233, 180, 76, 0.05) 55%, transparent);
+}

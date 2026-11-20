@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Gold light spill that rises from the chest seam. Composited with mix-blend-mode: screen. -->
+  <defs>
+    <radialGradient id="g" cx="50%" cy="58%" r="50%" fx="50%" fy="62%">
+      <stop offset="0" stop-color="#FFF1C2" stop-opacity="0.95"/>
+      <stop offset="0.16" stop-color="#F9D45C" stop-opacity="0.7"/>
+      <stop offset="0.42" stop-color="#E9B44C" stop-opacity="0.28"/>
+      <stop offset="0.72" stop-color="#E08A1E" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#E08A1E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="400" cy="340" rx="400" ry="260" fill="url(#g)"/>
+</svg>

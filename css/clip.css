@@ -1,0 +1,223 @@
+/* Tesoro Desk V3 · CLIPPED GLASS system (Jamaal's ruling, Nov 20, 2026).
+   Boxes are not rounded and not plain square. Every corner is chamfered:
+   a small flat cut, cut with clip-path. Glass depth comes from light:
+   a clear translucent face, a bright top edge, a sheen that falls off,
+   and a dark lower shade. Signal Orange sits underneath the panel and
+   peeks out at the lower corners as a hard offset silhouette, and a
+   small plus sign rides the top right corner of major panels, exactly
+   like the Brand Identity V2 board. Devices (phone, watch, chest) keep
+   their hardware shapes. Everything else in the system is clipped. */
+
+:root {
+  --cut: 16px;
+  --cut-sm: 10px;
+  --cut-xs: 7px;
+  --clip: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  --clip-sm: polygon(var(--cut-sm) 0, 100% 0, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0 100%, 0 var(--cut-sm));
+  --clip-xs: polygon(var(--cut-xs) 0, 100% 0, 100% calc(100% - var(--cut-xs)), calc(100% - var(--cut-xs)) 100%, 0 100%, 0 var(--cut-xs));
+  --glass-face:
+    linear-gradient(180deg, rgba(241, 238, 231, 0.14) 0%, rgba(241, 238, 231, 0.045) 34%, rgba(241, 238, 231, 0.02) 62%, rgba(0, 0, 0, 0.22) 100%),
+    linear-gradient(112deg, rgba(241, 238, 231, 0.09) 0%, rgba(241, 238, 231, 0) 42%),
+    linear-gradient(180deg, rgba(43, 51, 60, 0.97), rgba(15, 19, 23, 0.98));
+  --glass-edge:
+    inset 0 1px 0 rgba(241, 238, 231, 0.42),
+    inset 0 0 0 1px rgba(241, 238, 231, 0.16),
+    inset 0 -22px 34px rgba(0, 0, 0, 0.38),
+    inset 0 14px 26px rgba(241, 238, 231, 0.05);
+  --peek: drop-shadow(7px 7px 0 rgba(242, 106, 61, 0.85));
+  --peek-soft: drop-shadow(5px 5px 0 rgba(242, 106, 61, 0.5));
+  --plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 11 11'%3E%3Cpath d='M4.5 0h2v4.5H11v2H6.5V11h-2V6.5H0v-2h4.5z' fill='%23F26A3D'/%3E%3C/svg%3E");
+}
+
+/* Backdrop: the board's tech grid, stronger, over Carbon. */
+body { background: #101418; }
+.layer-grid { opacity: 0.9; }
+.layer-grid::before {
+  background-size: 44px 44px;
+  background-image:
+    linear-gradient(rgba(152, 163, 173, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(152, 163, 173, 0.055) 1px, transparent 1px);
+}
+
+/* ---------- Panels: clipped glass ---------- */
+.hud,
+.glass,
+.faq-item,
+.feedback-panel,
+.updates,
+.waitlist-panel {
+  border-radius: 0 !important;
+  clip-path: var(--clip);
+  background: var(--glass-face) !important;
+  box-shadow: var(--glass-edge) !important;
+  border: 0 !important;
+}
+
+/* Orange underneath, peeking at the lower right, on the major panels. */
+.hero-stage,
+.waitlist-panel,
+.step,
+.beta-card,
+.plate,
+.wrist-stage,
+.feedback-panel {
+  filter: var(--peek);
+}
+.faq-item,
+.updates,
+.spec-type,
+.spec-colors { filter: var(--peek-soft); }
+
+/* The plus sign at the top right corner of major panels. */
+.hero-stage,
+.waitlist-panel,
+.wrist-stage,
+.feedback-panel,
+.spec-colors {
+  background-image: var(--plus), var(--glass-face) !important;
+  background-repeat: no-repeat, no-repeat;
+  background-position: calc(100% - 14px) 12px, 0 0;
+  background-size: 11px 11px, 100% 100%;
+}
+
+/* Nested clipped panels inside clipped panels keep the smaller cut. */
+.step,
+.beta-card,
+.plate,
+.spec-type,
+.spec-colors,
+.faq-item {
+  clip-path: var(--clip-sm);
+}
+
+/* Gold edge line on the hero stage becomes a clipped top light. */
+.glass-gold-edge { display: none !important; }
+.hero-stage { padding-top: 10px; }
+
+/* ---------- Header ---------- */
+.nav {
+  clip-path: var(--clip-sm);
+  filter: var(--peek-soft);
+}
+.nav-panel { clip-path: var(--clip-sm); border-radius: 0 !important; }
+.wordmark-text { font-family: var(--font-display); letter-spacing: 0.02em; }
+
+/* ---------- Buttons: clipped, bright gold under clear glass ---------- */
+.btn {
+  border-radius: 0 !important;
+  clip-path: var(--clip-xs);
+  border: 0 !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.08) 46%, rgba(0, 0, 0, 0.10) 100%),
+    linear-gradient(100deg, #f6cf7d 0%, #E9B44C 52%, #c98f2b 100%) !important;
+  color: #101418 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 10px 24px rgba(0, 0, 0, 0.35) !important;
+}
+.btn-ghost {
+  background:
+    linear-gradient(180deg, rgba(241, 238, 231, 0.16) 0%, rgba(241, 238, 231, 0.05) 55%, rgba(0, 0, 0, 0.18) 100%),
+    linear-gradient(180deg, rgba(41, 50, 58, 0.85), rgba(16, 20, 24, 0.92)) !important;
+  color: #F1EEE7 !important;
+  box-shadow: var(--glass-edge) !important;
+}
+.btn[disabled] { opacity: 0.55; }
+
+/* ---------- Hero: board composition ---------- */
+.hero { padding-top: clamp(18px, 4vw, 44px); }
+.display {
+  font-size: clamp(3rem, 13.5vw, 6.2rem);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+.hero-sub { font-family: var(--font-display); font-weight: 700; }
+.status .dot { background: #E9B44C; }
+.hero-chip {
+  clip-path: var(--clip-xs);
+  border-radius: 0 !important;
+  filter: var(--peek-soft);
+}
+
+/* Status strip reads like a board rail. */
+.strip-row .mono-label { color: #98A3AD; }
+.strip-row .slash-lead::before, .slash-one { background: #F26A3D !important; }
+
+/* ---------- Beats and sticker tiles ---------- */
+.sticker {
+  border-radius: 0 !important;
+  clip-path: var(--clip-xs);
+  background:
+    linear-gradient(180deg, rgba(241, 238, 231, 0.14), rgba(241, 238, 231, 0.03) 60%, rgba(0, 0, 0, 0.25)),
+    linear-gradient(180deg, #29323A, #161c22) !important;
+  box-shadow: inset 0 1px 0 rgba(241, 238, 231, 0.4), inset 0 0 0 1px rgba(241, 238, 231, 0.22) !important;
+  filter: drop-shadow(4px 4px 0 rgba(242, 106, 61, 0.75));
+}
+.sticker svg { color: #E9B44C; }
+.sticker::after { top: 3px !important; }
+.cursor-sticker, .stop-tile { filter: drop-shadow(4px 4px 0 rgba(242, 106, 61, 0.6)); }
+.take-chip {
+  border-radius: 0 !important;
+  clip-path: var(--clip-xs);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.05) 55%),
+    linear-gradient(100deg, #f6cf7d, #E9B44C 60%, #c98f2b) !important;
+  color: #101418 !important;
+}
+
+/* Section heads: SYS rail with an orange tick and a plus at the right. */
+.section-index { border-top: 1px solid rgba(152, 163, 173, 0.28); padding-top: 10px; }
+.slash-lead::before { background: #F26A3D !important; }
+.hot { color: #F26A3D !important; }
+
+/* ---------- Steps ---------- */
+.steps { gap: 14px; }
+.step { background: var(--glass-face) !important; }
+.step .h3 { font-family: var(--font-display); }
+
+/* ---------- Watch caveat plate ---------- */
+.caveat {
+  clip-path: var(--clip-xs);
+  border-radius: 0 !important;
+  filter: none;
+  color: #E9B44C !important;
+}
+
+/* ---------- Forms: clipped fields, same wiring ---------- */
+.field input,
+.field textarea {
+  border-radius: 0 !important;
+  clip-path: var(--clip-xs);
+  background: rgba(16, 20, 24, 0.72) !important;
+  box-shadow: inset 0 0 0 1px rgba(152, 163, 173, 0.35), inset 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+  border: 0 !important;
+  color: #F1EEE7 !important;
+}
+.field input:focus,
+.field textarea:focus {
+  box-shadow: inset 0 0 0 1px #E9B44C, inset 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+  outline: none;
+}
+.seg label span {
+  border-radius: 0 !important;
+  clip-path: var(--clip-xs);
+}
+.seg input:checked + span {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.05) 55%),
+    linear-gradient(100deg, #f6cf7d, #E9B44C 60%, #c98f2b) !important;
+  color: #101418 !important;
+}
+
+/* ---------- FAQ ---------- */
+.faq-item summary { cursor: pointer; }
+.faq-icon { color: #F26A3D; }
+
+/* ---------- Spec sheet ---------- */
+.swatch i { clip-path: var(--clip-xs); border-radius: 0 !important; }
+
+/* ---------- Footer ---------- */
+.site-footer .hatch-strip { background: repeating-linear-gradient(-45deg, #E9B44C 0 10px, transparent 10px, transparent 20px); opacity: 0.5; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stage, .waitlist-panel, .step, .beta-card, .plate, .wrist-stage, .feedback-panel, .faq-item, .updates, .spec-type, .spec-colors, .nav { filter: none; }
+}

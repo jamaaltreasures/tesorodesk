@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <!-- Static fallback tile for the tech grid (no-JS / no-canvas). 8px minor, 64px major. -->
+  <g fill="#98A3AD">
+    <g fill-opacity="0.045">
+      <rect x="8" y="0" width="1" height="64"/><rect x="16" y="0" width="1" height="64"/><rect x="24" y="0" width="1" height="64"/><rect x="32" y="0" width="1" height="64"/><rect x="40" y="0" width="1" height="64"/><rect x="48" y="0" width="1" height="64"/><rect x="56" y="0" width="1" height="64"/>
+      <rect x="0" y="8" width="64" height="1"/><rect x="0" y="16" width="64" height="1"/><rect x="0" y="24" width="64" height="1"/><rect x="0" y="32" width="64" height="1"/><rect x="0" y="40" width="64" height="1"/><rect x="0" y="48" width="64" height="1"/><rect x="0" y="56" width="64" height="1"/>
+    </g>
+    <g fill-opacity="0.11"><rect x="0" y="0" width="1" height="64"/><rect x="0" y="0" width="64" height="1"/></g>
+  </g>
+</svg>

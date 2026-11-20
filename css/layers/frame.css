@@ -1,0 +1,22 @@
+/* Layer: HUD frame panels. Hairline frame + four corner ticks (img/layers/tick-*.svg). */
+/* Surface, edge, and depth come from css/glass.css (.hud is a glass card).
+   This layer only adds the HUD corner ticks, set inside the glass like a viewfinder. */
+.hud::before {
+  content: ""; position: absolute; inset: 10px; z-index: 2; pointer-events: none;
+  background:
+    url("/img/layers/tick-tl.svg") top left / var(--tick) var(--tick) no-repeat,
+    url("/img/layers/tick-tr.svg") top right / var(--tick) var(--tick) no-repeat,
+    url("/img/layers/tick-bl.svg") bottom left / var(--tick) var(--tick) no-repeat,
+    url("/img/layers/tick-br.svg") bottom right / var(--tick) var(--tick) no-repeat;
+  opacity: 0.55;
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+.hud--flat { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+.hud--flat::after { display: none; }
+
+/* Crosshair registration marks. */
+.crosshair {
+  position: absolute; width: 17px; height: 17px; pointer-events: none;
+  background: url("/img/layers/crosshair.svg") center / contain no-repeat;
+  opacity: 0.7;
+}

@@ -1,0 +1,163 @@
+/* Tesoro Desk — INDUSTRIAL GEOMETRY system (MUSE rebuild, Nov 20, 2026).
+   Authoritative source: Jamaal's Full Style Guide + Website Design System boards,
+   the V3.0 synopsis and the Industrial Geometry & Graphic Asset System text.
+   Panels are precision cut, never rounded. Outlines follow the cut polygon:
+   each .tp panel is two nested clipped layers, the outer layer is the outline
+   material, the inner layer (inset 1px, same polygon) is the panel face.
+   Palette is locked: Carbon #101418, Gunmetal #29323A, Alloy #98A3AD,
+   Bone #F1EEE7, Treasure Gold #E9B44C, Signal Orange #F26A3D.
+   Signal Orange stays at signature accents only. */
+
+:root {
+  --tp-cut: 26px;          /* Panel A desktop cut */
+  --tp-cut-sm: 14px;       /* small cards */
+  --tp-line: rgba(241, 238, 231, 0.72);
+  --tp-line-soft: rgba(152, 163, 173, 0.35);
+  --tp-face: linear-gradient(165deg, #232b33 0%, #161c22 46%, #101418 100%);
+  --tp-poly: polygon(var(--tp-cut) 0, 100% 0, 100% calc(100% - var(--tp-cut)), calc(100% - var(--tp-cut)) 100%, 0 100%, 0 var(--tp-cut));
+  --tp-poly-sm: polygon(var(--tp-cut-sm) 0, 100% 0, 100% calc(100% - var(--tp-cut-sm)), calc(100% - var(--tp-cut-sm)) 100%, 0 100%, 0 var(--tp-cut-sm));
+}
+@media (max-width: 640px) { :root { --tp-cut: 16px; --tp-cut-sm: 10px; } }
+
+/* Existing HUD panels: a soft Bone outline that follows the clipped shape,
+   keeping the Signal Orange peek from the clipped glass pass. */
+.hud, .glass, .faq-item, .updates, .feedback-panel, .waitlist-panel {
+  filter: drop-shadow(0 0 1px rgba(241, 238, 231, 0.38)) drop-shadow(6px 6px 0 rgba(242, 106, 61, 0.45));
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud, .glass, .faq-item, .updates, .feedback-panel, .waitlist-panel { filter: drop-shadow(0 0 1px rgba(241, 238, 231, 0.38)); }
+}
+
+/* ---------- TesoroPanel base (Types A to E) ---------- */
+.tp { position: relative; clip-path: var(--tp-poly); background: var(--tp-line); }
+.tp-in {
+  position: relative; margin: 1px; clip-path: var(--tp-poly);
+  background: var(--tp-face); padding: clamp(18px, 3vw, 30px);
+  height: calc(100% - 2px); box-sizing: border-box;
+}
+/* Type A — Standard Chamfer: plain Bone outline (set above). */
+/* Type B — Orange Corner Insert: the wedge is part of the outer material,
+   fitted into the upper left cut, not a badge laid over it. */
+.tp-b { background: linear-gradient(135deg, var(--signal) 0, var(--signal) 46px, var(--tp-line) 47px, var(--tp-line) 100%); }
+/* Type C — Stepped Notch: lower right recess, outline follows the step. */
+.tp-c {
+  --notch: 34px;
+  --tp-poly: polygon(var(--tp-cut) 0, 100% 0, 100% calc(100% - var(--notch)), calc(100% - var(--notch)) calc(100% - var(--notch)), calc(100% - var(--notch)) 100%, 0 100%, 0 var(--tp-cut));
+}
+.tp-c .tp-notch-hatch {
+  position: absolute; right: 4px; bottom: 4px; width: 30px; height: 22px; pointer-events: none;
+  background: repeating-linear-gradient(45deg, var(--signal) 0 4px, transparent 4px 10px);
+}
+/* Type D — Double Contour: inner Alloy contour offset 7px inside the face. */
+.tp-d .tp-in::after {
+  content: ""; position: absolute; inset: 7px; clip-path: var(--tp-poly-sm);
+  border: 1px solid var(--tp-line-soft); pointer-events: none;
+}
+.tp-d .tp-in { padding: clamp(24px, 3.4vw, 36px); }
+/* Type E — Editorial Corner Frame: one large cut, strong orange inset opposite hatches. */
+.tp-e {
+  --tp-poly: polygon(18px 0, calc(100% - 52px) 0, 100% 52px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  background: linear-gradient(225deg, var(--signal) 0, var(--signal) 62px, var(--tp-line) 63px, var(--tp-line) 100%);
+}
+.tp-e .tp-in { clip-path: polygon(17px 0, calc(100% - 51px) 0, 100% 51px, 100% calc(100% - 17px), calc(100% - 17px) 100%, 0 100%, 0 17px); }
+
+/* Small variant for feature cards */
+.tp-sm { clip-path: var(--tp-poly-sm); }
+.tp-sm > .tp-in { clip-path: var(--tp-poly-sm); }
+
+/* ---------- Accents ---------- */
+.hatch-ribbon { display: inline-block; height: 12px; width: 74px; background: repeating-linear-gradient(45deg, var(--alloy) 0 4px, transparent 4px 11px); opacity: 0.75; }
+.hatch-ribbon.orange { background: repeating-linear-gradient(45deg, var(--signal) 0 4px, transparent 4px 11px); opacity: 1; }
+.hatch-ribbon.gold { background: repeating-linear-gradient(45deg, var(--gold) 0 4px, transparent 4px 11px); opacity: 0.9; }
+.reg-cross { position: absolute; width: 15px; height: 15px; pointer-events: none; opacity: 0.65; }
+.reg-cross::before, .reg-cross::after { content: ""; position: absolute; background: var(--alloy); }
+.reg-cross::before { left: 7px; top: 0; width: 1px; height: 15px; }
+.reg-cross::after { top: 7px; left: 0; height: 1px; width: 15px; }
+.tech-divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
+.tech-divider::before { content: ""; height: 1px; flex: 1; background: linear-gradient(90deg, transparent, var(--tp-line-soft)); }
+.tech-divider::after { content: ""; height: 1px; flex: 1; background: linear-gradient(90deg, var(--tp-line-soft), transparent); }
+.tech-divider i { width: 14px; height: 4px; background: var(--signal); transform: skewX(-45deg); flex: none; }
+.target-frame { position: relative; }
+.target-frame .tb { position: absolute; width: 22px; height: 22px; border: 2px solid var(--gold); pointer-events: none; }
+.target-frame .tb.tl { top: -8px; left: -8px; border-right: 0; border-bottom: 0; }
+.target-frame .tb.tr { top: -8px; right: -8px; border-left: 0; border-bottom: 0; }
+.target-frame .tb.bl { bottom: -8px; left: -8px; border-right: 0; border-top: 0; }
+.target-frame .tb.br { bottom: -8px; right: -8px; border-left: 0; border-top: 0; }
+.grid-fade {
+  background-image: linear-gradient(rgba(152,163,173,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(152,163,173,0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 30%, transparent 78%);
+}
+.grain { position: relative; }
+.grain::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.05; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+.status-chip {
+  display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono);
+  font-size: var(--fs-mono); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--alloy);
+}
+.status-chip::before { content: ""; width: 7px; height: 7px; background: var(--gold); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); flex: none; }
+.status-chip.testing::before { background: var(--signal); }
+.status-chip.sealed::before { background: var(--alloy); }
+
+/* ---------- New sections ---------- */
+.ind-section { padding: clamp(56px, 9vw, 110px) 0; position: relative; }
+.card-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 34px; }
+.card-grid .tp-in { display: flex; flex-direction: column; gap: 10px; }
+.card-grid h3 { font-family: var(--font-display); font-size: var(--fs-h3); line-height: 1.05; }
+.card-grid p { color: var(--fg-muted); font-size: var(--fs-small); line-height: 1.55; }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.card-sticker { width: 74px; height: 74px; object-fit: contain; background: var(--bone); padding: 5px; clip-path: var(--tp-poly-sm); flex: none; }
+.card-num { font-family: var(--font-mono); color: var(--signal); font-size: var(--fs-mono); letter-spacing: var(--track-mono); }
+
+/* iPhone makeover: a wide editorial panel + the eleven feature cards */
+.iphone-hero { margin-top: 30px; }
+.iphone-hero .tp-in { display: grid; gap: 22px; grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 860px) { .iphone-hero .tp-in { grid-template-columns: 1.2fr 0.8fr; } }
+.iphone-hero img.device { width: 100%; max-width: 420px; justify-self: center; background: var(--bone); padding: 10px; clip-path: var(--tp-poly-sm); box-sizing: border-box; }
+
+/* Sticker tiles (gallery + watch row) */
+.tile-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin-top: 30px; }
+.tile { background: linear-gradient(170deg, #f5f1e8, #e7e1d2); clip-path: var(--tp-poly-sm); padding: 14px 12px 12px; text-align: center; }
+.tile img { width: 100%; height: 128px; object-fit: contain; display: block; }
+.tile figcaption { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: #101418; margin-top: 9px; }
+.tile.dark { background: var(--tp-face); }
+.tile.dark figcaption { color: var(--alloy); }
+.watch-row { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); margin-top: 26px; }
+.watch-row .tile img { height: 148px; }
+
+/* Geometry specimen */
+.specimen { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 30px; }
+.specimen .tp-in { min-height: 132px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+.specimen .mono-label { color: var(--alloy); }
+.specimen b { color: var(--bone); font-family: var(--font-display); letter-spacing: 0.02em; }
+
+/* Beta + step sticker images inside the existing die-cut tiles */
+.sticker img { width: 40px; height: 40px; object-fit: contain; }
+.sticker:has(img) { background: var(--bone) !important; }
+
+/* Cascade repair (found in QA of the rebuild): in the clipped glass pass the
+   plus sign rule set background-image with !important but left repeat, size and
+   position as normal declarations, and a background shorthand elsewhere reset
+   them to repeat/auto. The 11px Signal Orange plus therefore tiled across the
+   whole hero stage, waitlist, wrist and feedback panels as an orange mesh.
+   The board's intent is ONE plus at the top right corner. Restore it. */
+.hero-stage, .waitlist-panel, .wrist-stage, .feedback-panel, .spec-colors {
+  background-repeat: no-repeat, no-repeat !important;
+  background-position: calc(100% - 14px) 12px, 0 0 !important;
+  background-size: 11px 11px, 100% 100% !important;
+}
+
+/* Nav additions keep the industrial shell */
+.nav-links a span { color: var(--signal); }
+
+/* Hero stage: target brackets around the composition */
+.hero-stage .tb { z-index: 3; }
+
+@media (max-width: 640px) {
+  .tile img { height: 108px; }
+  .watch-row .tile img { height: 126px; }
+  .card-sticker { width: 60px; height: 60px; }
+}

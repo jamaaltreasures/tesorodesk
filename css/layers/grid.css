@@ -1,0 +1,17 @@
+/* Layer: tech grid. 8px minor / 64px major, 1 device-pixel lines, radial fade.
+   js/layers/grid.js draws it on a canvas at devicePixelRatio and aligns it to the
+   content column; img/layers/grid.svg is the no-JS fallback tile. */
+.layer-grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("/img/layers/grid.svg");
+  background-size: var(--grid-major) var(--grid-major);
+  background-position: var(--grid-x, 0px) 0;
+  -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 32%, #000 0%, rgba(0,0,0,0.85) 38%, rgba(0,0,0,0.25) 72%, transparent 100%);
+          mask-image: radial-gradient(ellipse 90% 75% at 50% 32%, #000 0%, rgba(0,0,0,0.85) 38%, rgba(0,0,0,0.25) 72%, transparent 100%);
+  contain: strict;
+}
+.layer-grid.has-canvas { background-image: none; }
+.layer-grid canvas {
+  position: absolute; left: 0; top: 0;
+  will-change: transform;
+}

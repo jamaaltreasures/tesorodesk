@@ -1,0 +1,7 @@
+/* Layer: vignette. Darkens the edges of the Carbon field so the grid fades out. */
+.layer-vignette {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 20%, transparent 45%, rgba(11, 14, 17, 0.7) 100%),
+    linear-gradient(180deg, transparent 70%, rgba(11, 14, 17, 0.5) 100%);
+}

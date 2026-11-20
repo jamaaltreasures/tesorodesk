@@ -1,0 +1,10 @@
+/* Layer: Signal Orange accent slashes. */
+.slash-lead { display: inline-flex; align-items: center; gap: 10px; }
+.slash-lead::before {
+  content: ""; flex: none; width: 30px; height: 12px;
+  background: url("/img/layers/slash.svg") center / contain no-repeat;
+}
+.slash-one {
+  display: inline-block; width: 8px; height: 12px; vertical-align: -1px;
+  background: url("/img/layers/slash-single.svg") center / contain no-repeat;
+}

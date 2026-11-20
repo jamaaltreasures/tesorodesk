@@ -1,0 +1,15 @@
+/* Layer: frame rails. Hairlines on the content column edges, with 64px tick marks. */
+.layer-rails {
+  position: fixed; top: 0; bottom: 0; left: 50%; z-index: 0; pointer-events: none;
+  width: min(100% - 2 * var(--gutter), var(--maxw));
+  transform: translateX(-50%);
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+.layer-rails::before, .layer-rails::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 6px;
+  background: repeating-linear-gradient(to bottom, var(--line-strong) 0 1px, transparent 1px var(--grid-major));
+}
+.layer-rails::before { left: 0; }
+.layer-rails::after { right: 0; }
+@media (max-width: 720px) { .layer-rails { display: none; } }

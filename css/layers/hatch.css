@@ -1,0 +1,12 @@
+/* Layer: hatch stripes. Fine Alloy hatch for fills, bold Gold stripe for strips. */
+.hatch { background-image: url("/img/layers/hatch.svg"); background-size: 10px 10px; }
+.hatch-strip {
+  height: 14px;
+  border-block: 1px solid var(--line);
+  background: url("/img/layers/hatch.svg") 0 0 / 10px 10px;
+}
+.hatch-strip--gold {
+  height: 10px; border: 0;
+  background: url("/img/layers/hatch-gold.svg") 0 0 / 16px 16px;
+  opacity: 0.9;
+}

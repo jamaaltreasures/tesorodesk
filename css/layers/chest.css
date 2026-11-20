@@ -1,0 +1,88 @@
+/* Layer: the chest. Four clip-path slices of the exact official mark
+   (img/mark-1024.webp, never redrawn) plus glow, rays, and a seam light.
+   Slice geometry was measured from the PNG's alpha: lid/body seam at 41.2%,
+   lid gaps run from 38.7%→25.2% (left) and 59.3%→72.6% (right).
+   Motion: transforms + opacity only, spring easing, staggered. */
+
+.chest {
+  --open: 0;      /* 0 closed → 1 open (set by data-state) */
+  --peek: 0;      /* extra lift on hover/focus while open */
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: block;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
+}
+.chest[data-state="open"] { --open: 1; }
+.chest[data-state="open"]:hover,
+.chest[data-state="open"]:focus-visible { --peek: 1; }
+.chest:focus-visible { outline-offset: 10px; }
+
+.chest-slice {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  user-select: none; -webkit-user-drag: none;
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: transform var(--dur-chest) var(--spring);
+}
+.chest-body  { clip-path: polygon(0 41.2%, 100% 41.2%, 100% 100%, 0 100%); z-index: 3;
+  transform: translateY(calc(var(--open) * 1.2%)); }
+.chest-lid-c { clip-path: polygon(38.7% 0, 59.3% 0, 72.6% 41.2%, 25.2% 41.2%); z-index: 4;
+  transform-origin: 50% 41.2%;
+  transform: translateY(calc((var(--open) * -13% ) + (var(--peek) * -3%))) scale(calc(1 + var(--open) * 0.02));
+  transition-delay: 0ms; }
+.chest-lid-l { clip-path: polygon(0 0, 38.7% 0, 25.2% 41.2%, 0 41.2%); z-index: 4;
+  transform-origin: 9% 41.2%;
+  transform:
+    translate(calc((var(--open) * -6%) + (var(--peek) * -1.5%)), calc((var(--open) * -9%) + (var(--peek) * -2%)))
+    rotate(calc((var(--open) * -15deg) + (var(--peek) * -4deg)));
+  transition-delay: 70ms; }
+.chest-lid-r { clip-path: polygon(59.3% 0, 100% 0, 100% 41.2%, 72.6% 41.2%); z-index: 4;
+  transform-origin: 91% 41.2%;
+  transform:
+    translate(calc((var(--open) * 6%) + (var(--peek) * 1.5%)), calc((var(--open) * -9%) + (var(--peek) * -2%)))
+    rotate(calc((var(--open) * 15deg) + (var(--peek) * 4deg)));
+  transition-delay: 110ms; }
+
+/* Light: behind the body, so it also shines through the T cutout and the gaps. */
+.chest .glow-spill {
+  z-index: 1; left: -30%; right: -30%; top: -18%; height: 100%;
+  opacity: var(--open);
+  transform-origin: 50% 59%;
+  transform: scale(calc(0.55 + var(--open) * 0.45 + var(--peek) * 0.06));
+  transition: opacity var(--dur-4) var(--ease-out) 120ms, transform var(--dur-chest) var(--spring-soft) 120ms;
+}
+.chest .glow-rays {
+  z-index: 2; left: -12%; right: -12%; bottom: 58.8%; height: 88%;
+  opacity: calc(var(--open) * 0.85);
+  transform-origin: 50% 100%;
+  transform: scaleY(calc(0.25 + var(--open) * 0.75 + var(--peek) * 0.08));
+  transition: opacity var(--dur-4) var(--ease-out) 180ms, transform var(--dur-chest) var(--spring-soft) 160ms;
+}
+.chest-seam {
+  position: absolute; z-index: 2; left: 8%; right: 8%; top: calc(41.2% - 3px); height: 6px;
+  border-radius: 6px;
+  background: radial-gradient(closest-side, #FFF6D8, rgba(249, 212, 92, 0.9) 40%, rgba(233, 180, 76, 0));
+  opacity: var(--open);
+  transform: scaleX(var(--open));
+  transition: opacity var(--dur-3) var(--ease-out) 60ms, transform var(--dur-chest) var(--spring) 60ms;
+}
+.chest-shadow {
+  position: absolute; z-index: 0; left: 14%; right: 14%; bottom: 2%; height: 9%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), transparent);
+}
+.chest .glow-ambient {
+  z-index: 0; inset: -22%;
+  opacity: calc(0.35 + var(--open) * 0.65);
+  transition: opacity var(--dur-4) var(--ease-out);
+}
+
+/* Reduced motion: no movement. The closed and open states crossfade (glow only). */
+@media (prefers-reduced-motion: reduce) {
+  .chest-slice { transform: none !important; transition: none; }
+  .chest .glow-spill, .chest .glow-rays, .chest-seam { transform: none; transition: opacity var(--dur-3) linear; }
+}
